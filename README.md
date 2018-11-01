@@ -1,5 +1,29 @@
 # **Poker Hand Comparison**
 
+This is a repository that contains my solution to the Grabyo Poker Hand Comparison technical test. It is written in **Python 3.6** with **Pytest** for testing (see `Pipfile` for more details)
+
+## Usage
+
+Input format:
+```
+// TODO
+```
+
+Running tests:
+```
+// TODO haha
+```
+
+## Structure
+
+```
+requirements.txt
+PokerHand/
+tests/
+```
+
+## Original Text 
+
 Poker Hand Comparison is a little program that will compare two hands of poker according to the rules of [Texas Hold'em rules](https://en.wikipedia.org/wiki/Texas_hold_%27em#Hand_values).
 
 ## Requirements
