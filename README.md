@@ -25,6 +25,8 @@ tests/
 ## Approach
 
 Could create a Lookup table
+Could create an enum for each card
+Could implement Hand stuff inside of PokerHand
 
 ## Original Text 
 
