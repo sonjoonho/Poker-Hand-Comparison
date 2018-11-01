@@ -1,5 +1,3 @@
-def hi(s):
-    print("hello")
 class PokerHand:
     def __init__(self, hand):
         self.hand = hand
