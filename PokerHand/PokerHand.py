@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 """
 Implements a basic PokerHand object that encapsulates the cards that the hand
 consists of, and a function to compare the value of the hand against other
@@ -33,9 +35,55 @@ class PokerHand:
         return Result.TIE
 
     def _calculate_value(self):
-        pass
+        """
+        Calculates the value of a hand.
 
-class value:
+        Returns:
+            The value of the hand, as a Value.
+        """
+        
+        # Calculate the frequency of each rank (ignoring suits) and sort
+        ranks = "AKQJT98765432"
+        # TODO can be done more succinctly
+        rank_counts_dict = {rank: "".join(self.cards).count(rank) for rank in ranks}
+        rank_counts = rank_counts_dict.values()
+
+        # The hand is four of a kind
+        if rank_counts == [4, 1]:
+            return Value.FOUR_OF_A_KIND
+        
+        # The hand is a full house
+        if rank_counts == [3, 2]:
+            return Value.FULL_HOUSE
+
+        # The hand is three of a kind
+        if rank_counts == [3, 1, 1]:
+            return Value.THREE_OF_A_KIND
+        
+        # The hand is a two pair
+        if rank_counts == [2, 2, 1]:
+            return Value.TWO_PAIR
+
+        # The hand is a pair
+        if len(rank_counts) == 4:
+            return Value.PAIR
+
+        # We have a flush if all the cards have the same suit = All cards 
+        # have the same suit as the first card
+        # This implementation is somewhat esoteric, but very fast.
+        flush = "".join(self.cards).count(self.cards[0][1]) == len(x)
+
+        # We have a straight if the difference between the rank of the bottom
+        # card and top card is 4.
+        # TODO Finish this implementation
+        # straight = 
+
+        # If we have a straight and flush, we have a straight flush
+
+        return Value.HIGH_CARD
+    
+
+class Value:
     """
     Represents the value of a hand. Implemented according to as detailed by 
     https://en.wikipedia.org/wiki/Texas_hold_%27em#Hand_values. 
