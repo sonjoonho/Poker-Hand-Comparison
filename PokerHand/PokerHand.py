@@ -47,26 +47,29 @@ class PokerHand:
         # work with sometimes
         cards_joined = "".join(self.cards)
         rank_counts_dict = {rank: cards_joined.count(rank) for rank in ranks}
-        rank_counts = rank_counts_dict.values()
+        rank_counts = sorted(list(rank_counts_dict.values()), reverse=True)
+
+        print(self.cards)
+        print(rank_counts)
 
         # The hand is four of a kind
-        if rank_counts == [4, 1]:
+        if rank_counts[:2] == [4, 1]:
             return Value.FOUR_OF_A_KIND
         
         # The hand is a full house
-        if rank_counts == [3, 2]:
+        if rank_counts[:2] == [3, 2]:
             return Value.FULL_HOUSE
 
         # The hand is three of a kind
-        if rank_counts == [3, 1, 1]:
+        if rank_counts[:3] == [3, 1, 1]:
             return Value.THREE_OF_A_KIND
         
         # The hand is a two pair
-        if rank_counts == [2, 2, 1]:
-            return Value.TWO_PAIR
+        if rank_counts[:3] == [2, 2, 1]:
+            return Value.TWO_PAIRS
 
         # The hand is a pair
-        if len(rank_counts) == 4:
+        if sum(count > 0 for count in rank_counts) == 4:
             return Value.PAIR
 
         # We have a flush if all the cards have the same suit = All cards 
