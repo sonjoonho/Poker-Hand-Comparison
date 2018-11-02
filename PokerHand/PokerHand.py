@@ -8,19 +8,17 @@ hands.
 """
 class PokerHand:
     def __init__(self, cards):
-        try:
-            # TODO check input format strictly, first character of each card
-            # is the value, second is the suit
-            self.cards = cards.split()
+          # TODO check input format strictly, first character of each card
+          # is the value, second is the suit
+        cards.upper() 
 
-            if len(self.cards) != 5:
-                raise ValueError("Invalid format: Hands must consist of "
-                                 "exactly 5 cards.")
+        self.cards = cards.split()
 
-            self.value = self._calculate_value()
+        if len(self.cards) != 5:
+            raise ValueError("Invalid format: Hands must consist of "
+                             "exactly 5 cards.")
 
-        except (AttributeError, TypeError):
-            print("Invalid format: Hand must be a string.")
+        self.value = self._calculate_value()
 
 
     def compareWith(self, other_hand):
@@ -45,7 +43,10 @@ class PokerHand:
         # Calculate the frequency of each rank (ignoring suits) and sort
         ranks = "AKQJT98765432"
         # TODO can be done more succinctly
-        rank_counts_dict = {rank: "".join(self.cards).count(rank) for rank in ranks}
+        # Store the joined string version of the cards as this can be easier to
+        # work with sometimes
+        cards_joined = "".join(self.cards)
+        rank_counts_dict = {rank: cards_joined.count(rank) for rank in ranks}
         rank_counts = rank_counts_dict.values()
 
         # The hand is four of a kind
@@ -71,7 +72,7 @@ class PokerHand:
         # We have a flush if all the cards have the same suit = All cards 
         # have the same suit as the first card
         # This implementation is somewhat esoteric, but very fast.
-        flush = "".join(self.cards).count(self.cards[0][1]) == len(x)
+        flush = cards_joined.count(self.cards[0][1]) == len(cards_joined)
 
         # We have a straight if the difference between the rank of the bottom
         # card and top card is 4.
@@ -80,7 +81,7 @@ class PokerHand:
 
         # If we have a straight and flush, we have a straight flush
 
-        return Value.HIGH_CARD
+        return Value.HIGHCARD
     
 
 class Value:
