@@ -42,15 +42,26 @@ class PokerHand:
         
         # Calculate the frequency of each rank (ignoring suits) and sort
         ranks = "AKQJT98765432"
+        ranks_values = {'A': 12, 'K': 11, 'Q': 10, 'J': 9, 
+                        'T': 8,  '9': 7 , '8': 6,  '7': 5, 
+                        '6': 4,  '5': 3,  '4': 2,  '3': 1, '2': 0}
+
         # TODO can be done more succinctly
         # Store the joined string version of the cards as this can be easier to
         # work with sometimes
+        # FIXME is this even used?
         cards_joined = "".join(self.cards)
         rank_counts_dict = {rank: cards_joined.count(rank) for rank in ranks}
-        rank_counts = sorted(list(rank_counts_dict.values()), reverse=True)
 
-        print(self.cards)
-        print(rank_counts)
+        # Calculate present ranks, and sort according to their value
+        # This is used in calculating whether of not all the cards are royal,
+        # and calculating if the hand is a straight.
+        present_ranks = [r for (r, c) in rank_counts_dict.items() if c > 0]
+        present_ranks = sorted(present_ranks, key=lambda k: ranks_values[k], 
+                               reverse=True)
+
+
+        rank_counts = sorted(list(rank_counts_dict.values()), reverse=True)
 
         # The hand is four of a kind
         if rank_counts[:2] == [4, 1]:
@@ -69,23 +80,42 @@ class PokerHand:
             return Value.TWO_PAIRS
 
         # The hand is a pair
-        if sum(count > 0 for count in rank_counts) == 4:
+        if len(present_ranks) == 4:
             return Value.PAIR
 
         # We have a flush if all the cards have the same suit = All cards 
         # have the same suit as the first card
         # This implementation is somewhat esoteric, but very fast.
-        flush = cards_joined.count(self.cards[0][1]) == len(cards_joined)
+        suits = [card[1] for card in self.cards]
+        flush = suits.count(suits[0]) == len(suits)
+
+
+        # Check if royal flush
+        royal = sum([(rank in ranks[:5]) for rank in present_ranks]) == len(present_ranks)
+        
+        if royal and flush:
+            return Value.ROYAL_FLUSH
+
+        print(self.cards)
+        print(present_ranks)
+        print(rank_counts)
 
         # We have a straight if the difference between the rank of the bottom
         # card and top card is 4.
-        # TODO Finish this implementation
-        # straight = 
+        # TODO check for wheel
+        straight = False
+        if len(present_ranks) == 5:
+            straight = ranks_values[present_ranks[0]] - ranks_values[present_ranks[4]] == 4
 
         # If we have a straight and flush, we have a straight flush
+        if straight and flush:
+            return Value.STRAIGHT_FLUSH
+        elif flush:
+            return Value.FLUSH
+        elif straight:
+            return Value.STRAIGHT
 
         return Value.HIGHCARD
-    
 
 class Value:
     """
