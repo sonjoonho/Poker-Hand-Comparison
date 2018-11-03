@@ -4,7 +4,7 @@ import pytest
 
 class TestValue:
     def test_royalflush(self):
-        hand = PokerHand("10H JH QH KH AH")
+        hand = PokerHand("TH JH QH KH AH")
         assert hand.value == Value.ROYAL_FLUSH
 
     def test_straightflush(self):
