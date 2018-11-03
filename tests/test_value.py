@@ -39,6 +39,6 @@ class TestValue:
         hand = PokerHand("KC KH 7D 2C 5S")
         assert hand.value == Value.PAIR
 
-    def test_pair(self):
+    def test_highcard(self):
         hand = PokerHand("AC 4H 7D KC 2S")
         assert hand.value == Value.HIGHCARD
