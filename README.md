@@ -4,30 +4,46 @@ This is a repository that contains my solution to the Grabyo Poker Hand Comparis
 
 ## Usage
 
-Input format:
-```
-// TODO
+### Example
+
+```python
+from Pokerhand.Pokerhand import Pokerhand
+
+hand1 = Pokerhand("KC KH KD 7C 5S")
+hand2 = Pokerhand("KS KH KD 7C 5S")
+
+result = hand1.compareWith(hand2)
 ```
 
-Running tests:
-```
-// TODO haha
+### Running tests
+
+In the project root:
+
+```shell
+pytest
 ```
 
 ## Structure
 
-```
+```python
 requirements.txt
-PokerHand/
-tests/
+PokerHand/__init__.py
+PokerHand/Pokerhand.py # Contains main implementation
+tests/test_comparison.py # Tests for hand comparison
+tests/test_value.py # Tests for value calculation
 ```
+
+This project was implemented in accordance to the PEP 8 style guidelines.
 
 ## Approach
 
-Could create a Lookup table
-Could create an enum for each card
-Could implement Hand stuff inside of PokerHand
-Implement rank as an enum in increasing order to make comparison easy
+The implemented algorithm is a simple method to compare hands. It primarily uses the number of distinct ranks in the hand, and also takes into consideration suits when necessary.
+
+The approach also includes an enum called `Value` that represents that value of a hand. This provides readability.
+
+One of the flaws of my algorithm is that it does not take into account the concept of **kickers**. This is used to settle ties. However, this would add significant complexity and a time commitment which I currently do not have the capacity to offer.
+
+This problem could also have been approached using a lookup table. However, this requires a relatively large amount of memory, and due to the limited scope of the problem it does not offer a significant runtime advantage. If, however, we were scaling the problem up to compare large numbers of hands, this would provide a more viable approach.
 
 ## Original Text 
 
