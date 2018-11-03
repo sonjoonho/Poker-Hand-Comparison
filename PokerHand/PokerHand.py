@@ -39,69 +39,61 @@ class PokerHand:
         Returns:
             The value of the hand, as a Value.
         """
-        
-        # Calculate the frequency of each rank (ignoring suits) and sort
+
+        # First, define the ranks and their relative values.
         ranks = "AKQJT98765432"
         ranks_values = {'A': 12, 'K': 11, 'Q': 10, 'J': 9, 
                         'T': 8,  '9': 7 , '8': 6,  '7': 5, 
                         '6': 4,  '5': 3,  '4': 2,  '3': 1, '2': 0}
 
-        # TODO can be done more succinctly
-        # Store the joined string version of the cards as this can be easier to
-        # work with sometimes
-        # FIXME is this even used?
-        cards_joined = "".join(self.cards)
-        rank_counts_dict = {rank: cards_joined.count(rank) for rank in ranks}
+        # Calculate how many times a particular rank appears in the hand (if
+        # at all) and store in a dict
+        rank_counts_dict = {rank: "".join(self.cards).count(rank) for rank in ranks
+                            if "".join(self.cards).count(rank) > 0}
 
-        # Calculate present ranks, and sort according to their value
-        # This is used in calculating whether of not all the cards are royal,
-        # and calculating if the hand is a straight.
-        present_ranks = [r for (r, c) in rank_counts_dict.items() if c > 0]
-        present_ranks = sorted(present_ranks, key=lambda k: ranks_values[k], 
-                               reverse=True)
+        # Calculate present ranks, and sort according to their value as defined
+        # by the map ranks_values above.
+        present_ranks = sorted(rank_counts_dict.keys(), 
+                               key=lambda k: ranks_values[k], reverse=True)
 
-
+        # Store the counts of each rank sorted by frequency.
         rank_counts = sorted(list(rank_counts_dict.values()), reverse=True)
 
-        # The hand is four of a kind
-        if rank_counts[:2] == [4, 1]:
+        # The hand is four of a kind if one rank appears 4 times, and another
+        # appears once. A similar pattern of comparison is used below.
+        if rank_counts == [4, 1]:
             return Value.FOUR_OF_A_KIND
         
-        # The hand is a full house
-        if rank_counts[:2] == [3, 2]:
+        # The hand is a full house.
+        if rank_counts == [3, 2]:
             return Value.FULL_HOUSE
 
-        # The hand is three of a kind
-        if rank_counts[:3] == [3, 1, 1]:
+        # The hand is three of a kind.
+        if rank_counts == [3, 1, 1]:
             return Value.THREE_OF_A_KIND
         
-        # The hand is a two pair
-        if rank_counts[:3] == [2, 2, 1]:
+        # The hand is a two pair.
+        if rank_counts == [2, 2, 1]:
             return Value.TWO_PAIRS
 
-        # The hand is a pair
+        # The hand is a pair if one rank is repeated (so there are 4 distinct
+        # cards).
         if len(present_ranks) == 4:
             return Value.PAIR
 
-        # We have a flush if all the cards have the same suit = All cards 
-        # have the same suit as the first card
-        # This implementation is somewhat esoteric, but very fast.
+        # We have a flush if all the cards have the same suit.
         suits = [card[1] for card in self.cards]
         flush = suits.count(suits[0]) == len(suits)
 
-
         # Check if royal flush
-        royal = sum([(rank in ranks[:5]) for rank in present_ranks]) == len(present_ranks)
+        royal = sum([rank in ranks[:5] for rank in present_ranks]) == len(present_ranks)
         
         if royal and flush:
             return Value.ROYAL_FLUSH
 
-        print(self.cards)
-        print(present_ranks)
-        print(rank_counts)
-
         # We have a straight if the difference between the rank of the bottom
-        # card and top card is 4.
+        # card and top card is 4. For this, we have the condition that every
+        # card is distinct, hence the length check.
         # TODO check for wheel
         straight = False
         if len(present_ranks) == 5:
