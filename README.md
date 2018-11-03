@@ -20,7 +20,8 @@ result = hand1.compareWith(hand2)
 In the project root:
 
 ```shell
-pytest
+pipenv install -e .
+pipenv run pytest
 ```
 
 ## Structure
