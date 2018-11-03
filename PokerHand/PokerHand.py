@@ -4,7 +4,6 @@ from collections import defaultdict
 Implements a basic PokerHand object that encapsulates the cards that the hand
 consists of, and a function to compare the value of the hand against other
 hands.
-
 """
 class PokerHand:
     def __init__(self, cards):
@@ -29,8 +28,13 @@ class PokerHand:
         Returns:
             The result of the comparison.
         """
+        if self.value > other_hand.value:
+            return Result.WIN
+        elif self.value == other_hand.value:
+            return Result.TIE
+        else:
+            return Result.LOSS
 
-        return Result.TIE
 
     def _calculate_value(self):
         """
@@ -109,9 +113,10 @@ class PokerHand:
 
         return Value.HIGHCARD
 
+
 class Value:
     """
-    Represents the value of a hand. Implemented according to as detailed by 
+    Represents the value of a hand. Implemented as detailed by 
     https://en.wikipedia.org/wiki/Texas_hold_%27em#Hand_values. 
     """
     HIGHCARD = 0
@@ -127,6 +132,9 @@ class Value:
 
 
 class Result:
+    """
+    Represents the result of a poker hand comparison.
+    """
     WIN = 1
     LOSS = 2
     TIE = 3
