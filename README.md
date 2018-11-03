@@ -1,6 +1,6 @@
 # **Poker Hand Comparison**
 
-This is a repository that contains my solution to the Grabyo Poker Hand Comparison technical test. It is written in **Python 3.6** with **Pytest** for testing (see `Pipfile` for more details)
+This is a repository that contains my solution to the Grabyo Poker Hand Comparison technical test. It is written in **Python 3.6** with **Pytest** for testing (see `Pipfile` for more details). This project uses **Pipenv** for dependency management.
 
 ## Usage
 
@@ -26,7 +26,8 @@ pytest
 ## Structure
 
 ```python
-requirements.txt
+Pipfile
+Pipfile.lock
 PokerHand/__init__.py
 PokerHand/Pokerhand.py # Contains main implementation
 tests/test_comparison.py # Tests for hand comparison
@@ -52,7 +53,7 @@ Poker Hand Comparison is a little program that will compare two hands of poker a
 ## Requirements
 
 The characteristics of the string of cards are:
-* A space is used as card seperator
+* A space is used as card separator
 * Each card consists of two characters (not case sensitive)
 * The first character is the value of the card, valid characters are: `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `T`(en), `J`(ack), `Q`(ueen), `K`(ing), `A`(ce)
 * The second character represents the suit, valid characters are: `S`(pades), `H`(earts), `D`(iamonds), `C`(lubs)
