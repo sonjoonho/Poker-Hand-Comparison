@@ -1,6 +1,6 @@
 # **Poker Hand Comparison**
 
-This is a repository that contains my solution to the Grabyo Poker Hand Comparison technical test. It is written in **Python 3.6** with **Pytest** for testing (see `Pipfile` for more details). This project uses **Pipenv** for dependency management.
+This is a Python library to compare two poker hands. It is written in **Python 3.6** with **Pytest** for testing (see `Pipfile` for more details). This project uses **Pipenv** for dependency management.
 
 ## Usage
 
@@ -63,7 +63,3 @@ This problem could also have been approached using a lookup table. However, this
 >> * WIN should return the integer `1`
 >> * LOSS should return the integer `2`
 >> * TIE should return the integer `3`
->> 
->> You are free to use any libraries you want but please do not anything that already evaluates poker hands ;)
->> 
->> Good luck!
