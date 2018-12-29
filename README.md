@@ -30,9 +30,9 @@ pipenv run pytest
 Pipfile
 Pipfile.lock
 PokerHand/__init__.py
-PokerHand/Pokerhand.py # Contains main implementation
+PokerHand/Pokerhand.py   # Contains main implementation
 tests/test_comparison.py # Tests for hand comparison
-tests/test_value.py # Tests for value calculation
+tests/test_value.py      # Tests for value calculation
 ```
 
 This project was implemented in accordance to the PEP 8 style guidelines.
