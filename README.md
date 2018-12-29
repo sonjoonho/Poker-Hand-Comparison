@@ -46,20 +46,3 @@ The approach also includes an enum called `Value` that represents that value of 
 One of the flaws of my algorithm is that it does not take into account the concept of **kickers**. This is used to settle ties. However, this would add significant complexity and a time commitment which I currently do not have the capacity to offer.
 
 This problem could also have been approached using a lookup table. However, this requires a relatively large amount of memory, and due to the limited scope of the problem it does not offer a significant runtime advantage. If, however, we were scaling the problem up to compare large numbers of hands, this would provide a more viable approach.
-
-## Original Text 
-
->> Poker Hand Comparison is a little program that will compare two hands of poker according to the rules of [Texas Hold'em rules](https://en.wikipedia.org/wiki/Texas_hold_%27em#Hand_values).
->> 
->> ## Requirements
->> 
->> The characteristics of the string of cards are:
->> * A space is used as card separator
->> * Each card consists of two characters (not case sensitive)
->> * The first character is the value of the card, valid characters are: `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `T`(en), `J`(ack), `Q`(ueen), `K`(ing), `A`(ce)
->> * The second character represents the suit, valid characters are: `S`(pades), `H`(earts), `D`(iamonds), `C`(lubs)
->> 
->> The result of your poker hand compare can be one of these 3 options:
->> * WIN should return the integer `1`
->> * LOSS should return the integer `2`
->> * TIE should return the integer `3`
